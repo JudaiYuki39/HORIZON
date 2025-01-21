@@ -1,0 +1,145 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+
+const RegisterPage = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string>("");
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    // Clear any previous error
+    setError("");
+
+    // Check if email and password are provided
+    if (!email || !password || !name) {
+      setError("Semua kolom harus diisi!");
+      return;
+    }
+
+    // If everything is valid, display success message
+    alert("Registerasi berhasil!");
+  };
+
+  return (
+    <div className="flex h-screen bg-white">
+      {/* Left section */}
+      <div className="flex flex-1 justify-center items-center bg-gray-100">
+        <div className="text-center">
+          <img
+            src="/image/HorizonLogo.jpeg" // Ganti dengan path gambar toko
+            alt="Storefront"
+            className="w-64 h-64 mx-auto"
+          />
+        </div>
+      </div>
+
+      {/* Right section */}
+      <div className="flex flex-1 justify-center items-center">
+        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+            Register
+          </h2>
+          <form onSubmit={handleSubmit}>
+            {/* Error message */}
+            {error && (
+              <div className="text-sm text-red-500 text-center mb-4">
+                {error}
+              </div>
+            )}
+
+            {/* Name field */}
+            <div className="mb-4">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="your name"
+                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Email field */}
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@gmail.com"
+                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Password field */}
+            <div className="mb-4 relative">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                type={passwordVisible ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="password"
+                className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-8 text-sm text-gray-600"
+              >
+                {passwordVisible ? "Hide" : "Show"}
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-sm text-black">Sudah punya akun?</span>
+              <Link
+                href="/login"
+                className="text-sm text-blue-600 hover:underline mr-auto ml-2"
+              >
+                Login
+              </Link>
+            </div>
+
+            {/* Submit button */}
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-black text-white font-semibold rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+            >
+              REGISTER
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RegisterPage;
